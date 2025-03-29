@@ -32,21 +32,31 @@ public class reserva implements Serializable {
     @Column(name = "fecha")
     @Temporal(javax.persistence.TemporalType.DATE)
     Date fecha;
-    
+
     @Column(name = "horaInicio")
     String horaInicio;
-    
+
     @Column(name = "horaFin")
     String horaFin;
-    
-    @Column(name = "Estado")
-    String Estado;
 
     @ManyToOne
     @JoinColumn(name = "id_usuario", nullable = false)
     private usuario Usuario;
 
+    @ManyToOne
+    @JoinColumn(name = "id_estado", nullable = true)
+    private estado Estado;
+
     public reserva() {
+    }
+
+    public reserva(Integer id, Date fecha, String horaInicio, String horaFin, usuario Usuario, estado Estado) {
+        this.id = id;
+        this.fecha = fecha;
+        this.horaInicio = horaInicio;
+        this.horaFin = horaFin;
+        this.Usuario = Usuario;
+        this.Estado = Estado;
     }
 
     public Integer getId() {
@@ -81,14 +91,6 @@ public class reserva implements Serializable {
         this.horaFin = horaFin;
     }
 
-    public String getEstado() {
-        return Estado;
-    }
-
-    public void setEstado(String Estado) {
-        this.Estado = Estado;
-    }
-
     public usuario getUsuario() {
         return Usuario;
     }
@@ -97,7 +99,13 @@ public class reserva implements Serializable {
         this.Usuario = Usuario;
     }
 
-    
+    public estado getEstado() {
+        return Estado;
+    }
+
+    public void setEstado(estado Estado) {
+        this.Estado = Estado;
+    }
 
     @Override
     public boolean equals(Object object) {

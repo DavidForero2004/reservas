@@ -6,12 +6,14 @@ package controlador;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modelo.estado;
+import persistencia.estadoJpaController;
 
 /**
  *
@@ -19,6 +21,7 @@ import modelo.estado;
  */
 @WebServlet(name = "controladorEstado", urlPatterns = {"/controladorEstado"})
 public class controladorEstado extends HttpServlet {
+        protected estadoJpaController estadoJPAController = new estadoJpaController();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -53,9 +56,20 @@ public class controladorEstado extends HttpServlet {
 
             estado EstadoTerminada = new estado();
             EstadoTerminada.setNombre("terminada");
+            
+            estadoJPAController.create(EstadoActiva);
+            estadoJPAController.create(EstadoPendiente);
+            estadoJPAController.create(EstadoConfirmada);
+            estadoJPAController.create(EstadoTerminada);
+           
         } catch (Exception sql) {
             System.out.println("error: " + sql);
         }
+    }
+    
+    public List<estado> raerEstados(){
+        estadoJpaController estadoJPA = new estadoJpaController();
+        return estadoJPA.findestadoEntities();
     }
 
     @Override

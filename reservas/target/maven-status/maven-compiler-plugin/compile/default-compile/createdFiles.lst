@@ -1,5 +1,6 @@
 modelo\usuario.class
 controlador\controladorEstado.class
+controlador\controladorReserva.class
 persistencia\reservaJpaController.class
 controlador\controladorUsuario.class
 persistencia\rolJpaController.class

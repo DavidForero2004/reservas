@@ -4,6 +4,8 @@
     Author     : david
 --%>
 
+<%@page import="controlador.controladorRol"%>
+<%@page import="controlador.controladorEstado"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -17,6 +19,13 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
     </head>
     <body>
+        <%
+            controladorEstado estado = new controladorEstado();
+            estado.registrarEstados();
+
+            controladorRol rol = new controladorRol();
+            rol.registroRoles();
+        %>
         <div class="wrapper">
             <div class="logo">
                 <img src="https://www.onlinelogomaker.com/blog/wp-content/uploads/2017/11/gym-logo.jpg" alt="">

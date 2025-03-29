@@ -106,17 +106,21 @@ public class controladorUsuario extends HttpServlet {
             return false;
         }
     }
-    
 
     public boolean comprobarAcceso(String email, HttpServletRequest request) {
         List<usuario> listUser = usuJPAController.findusuariosByEmail(email);
 
-            if (listUser != null) {
-                HttpSession misession = request.getSession(true);
-                misession.setAttribute("userSession", listUser);
-                return true;  
+        if (listUser != null) {
+            usuario Usu = null;
+
+            for (usuario usu : listUser) {
+                Usu = usu;
             }
-        
+
+            HttpSession misession = request.getSession(true);
+            misession.setAttribute("userSession", Usu);
+            return true;
+        }
 
         System.out.println("Ningún correo coincidió");
         return false;  // Retorna false solo después de revisar todos
@@ -127,11 +131,11 @@ public class controladorUsuario extends HttpServlet {
         return reservaJPA.findReservasByUser(id);
     }
 
-     public List<reserva> ConsultarReservas() {
+    public List<reserva> ConsultarReservas() {
         reservaJpaController reservaJPA = new reservaJpaController();
         return reservaJPA.findreservaEntities();
     }
-    
+
     @Override
     public String getServletInfo() {
         return "Short description";
