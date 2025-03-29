@@ -142,7 +142,8 @@ public class reservaJpaController implements Serializable {
 
     public List<reserva> findReservasByUser(Integer id_usuario) {
         EntityManager em = getEntityManager();
-        String FindQuery = "SELECT r FROM reserva r WHERE r.Usuario.id = :id_usuario";
+        String FindQuery = "SELECT r FROM reserva r JOIN FETCH r.Estado WHERE r.Usuario.id = :id_usuario";
+
         try {
             TypedQuery<reserva> query = em.createQuery(
                     FindQuery,

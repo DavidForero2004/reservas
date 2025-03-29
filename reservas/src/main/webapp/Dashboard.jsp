@@ -89,9 +89,8 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                    <% if (user.getRol().getId().equals(1)) { %>
+                                    
                                 <th>Usuario</th>
-                                    <% } %>
                                 <th>Fecha</th>
                                 <th>Hora Inicio</th>
                                 <th>Hora Fin</th>
@@ -104,9 +103,9 @@
                                 for (reserva res : Reservas) {%>
                             <tr>
                                 <td><%=i%></td>
-                                <% if (user.getRol().getId().equals(1)) {%>
+                                
                                 <td><%=res.getUsuario().getNombre()%></td>
-                                <% }%>
+                               
                                 <td><%=sdfDate.format(res.getFecha())%></td>
                                 <td><%=res.getHoraInicio()%></td>
                                 <td><%=res.getHoraFin()%></td>
@@ -215,7 +214,7 @@
         <div id="deleteReservaModal" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form id="deleteReservaForm" action="ReservaController" method="POST">
+                    <form id="deleteReservaForm" action="controladorReserva" method="POST">
                         <div class="modal-header">                      
                             <h4 class="modal-title">Eliminar Reserva</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>

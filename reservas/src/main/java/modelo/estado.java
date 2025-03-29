@@ -25,7 +25,7 @@ public class estado implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
-    @Column(name="nombre")
+    @Column(name="nombre", unique = true)
     private String nombre;
 
     public estado() {
