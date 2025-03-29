@@ -15,6 +15,7 @@ import java.util.List;
 import javax.persistence.Persistence;
 import modelo.reserva;
 import persistencia.exceptions.NonexistentEntityException;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -30,8 +31,8 @@ public class reservaJpaController implements Serializable {
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
-    
-    public reservaJpaController(){
+
+    public reservaJpaController() {
         emf = Persistence.createEntityManagerFactory("ReservasPU");
     }
 
@@ -138,5 +139,22 @@ public class reservaJpaController implements Serializable {
             em.close();
         }
     }
+
+    public List<reserva> findReservasByUser(Integer id_usuario) {
+        EntityManager em = getEntityManager();
+        String FindQuery = "SELECT r FROM reserva r WHERE r.Usuario.id = :id_usuario";
+        try {
+            TypedQuery<reserva> query = em.createQuery(
+                    FindQuery,
+                    reserva.class
+            );
+            query.setParameter("id_usuario", id_usuario);
+            return query.getResultList();
+        } finally {
+            em.close();
+        }
+    }
     
+    
+
 }

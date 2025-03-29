@@ -31,10 +31,6 @@
                     <span class="fa-solid fa-envelope"></span>
                     <input type="text" name="correo" id="correo" placeholder="Correo">
                 </div>
-                <div class="form-field d-flex align-items-center">
-                    <span class="fa-solid fa-envelope"></span>
-                    <input type="password" name="password" id="pwd" placeholder="Correo">
-                </div>
                 <button type="submit" class="btn mt-3">Ingresar</button>
             </form>
             <div class="text-center fs-6">

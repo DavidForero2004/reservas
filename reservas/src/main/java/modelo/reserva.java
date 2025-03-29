@@ -37,7 +37,7 @@ public class reserva implements Serializable {
     String horaInicio;
     
     @Column(name = "horaFin")
-    String HoraFin;
+    String horaFin;
     
     @Column(name = "Estado")
     String Estado;
@@ -47,15 +47,6 @@ public class reserva implements Serializable {
     private usuario Usuario;
 
     public reserva() {
-    }
-
-    public reserva(Integer id, Date fecha, String horaInicio, String HoraFin, String Estado, usuario Usuario) {
-        this.id = id;
-        this.fecha = fecha;
-        this.horaInicio = horaInicio;
-        this.HoraFin = HoraFin;
-        this.Estado = Estado;
-        this.Usuario = Usuario;
     }
 
     public Integer getId() {
@@ -83,11 +74,11 @@ public class reserva implements Serializable {
     }
 
     public String getHoraFin() {
-        return HoraFin;
+        return horaFin;
     }
 
-    public void setHoraFin(String HoraFin) {
-        this.HoraFin = HoraFin;
+    public void setHoraFin(String horaFin) {
+        this.horaFin = horaFin;
     }
 
     public String getEstado() {
@@ -106,7 +97,7 @@ public class reserva implements Serializable {
         this.Usuario = Usuario;
     }
 
-   
+    
 
     @Override
     public boolean equals(Object object) {

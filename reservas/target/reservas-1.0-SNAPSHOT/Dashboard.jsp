@@ -28,106 +28,61 @@
     </head>
 
     <body>
-        <%-- ... (código anterior igual) ... --%>
         <%
             HttpSession sessionObj = request.getSession(false);
             usuario user = (sessionObj != null) ? (usuario) sessionObj.getAttribute("userSession") : null;
-
             if (user == null) {
                 response.sendRedirect(request.getContextPath() + "/index.jsp");
                 return;
             }
 
             controladorUsuario usuController = new controladorUsuario();
+
             List<reserva> Reservas = new ArrayList<>();
 
-            if (user.getRol().equals(2)) { // Rol de usuario normal
+            if (user.getRol().getId().equals(2)) {
+                // Rol de usuario normal
                 Reservas = usuController.ConsultarReservasUser(user.getId());
-            } else if (user.getRol().equals(1)) { // Rol de administrador
-                //reservas = usuController.ConsultarTodasReservas(); // Necesitarás implementar este método
+            } else if (user.getRol().getId().equals(1)) {
+                // Rol de administrador
+                Reservas = usuController.ConsultarReservas();
             }
         %>
     <body>
-        <div class="container-xl">
-            <div class="table-responsive">
-                <div class="table-wrapper">
-                    <div class="table-title">
-                        <div class="row">
-                            <div class="col-sm-8">
-                                <h2>
-                                    <% if (user.getRol().equals(1)) { %>
-                                    Todas las <b>Reservas</b>
-                                    <% } else { %>
-                                    Mis <b>Reservas</b>
-                                    <% } %>
-                                </h2>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="search-box">
-                                    <i class="material-icons">&#xE8B6;</i>
-                                    <input type="text" class="form-control" placeholder="Buscar&hellip;">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <table class="table table-striped table-hover table-bordered">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                    <% if (user.getRol().equals(1)) { %>
-                                <th>Usuario</th>
-                                    <% } %>
-                                <th>Fecha</th>
-                                <th>Hora Inicio</th>
-                                <th>Hora Fin</th>
-                                <th>Estado</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <% if (reservas.isEmpty()) {%>
-                            <tr>
-                                <td colspan="<%= user.getRol().equals(1) ? 7 : 6%>" class="text-center">
-                                    No se encontraron reservas
-                                </td>
-                            </tr>
-                            <% } else {
-                                for (int i = 0; i < reservas.size(); i++) {
-                                    Reserva r = reservas.get(i);
-                            %>
-                            <tr>
-                                <td><%= i + 1%></td>
-                                <% if (user.getRol().equals(1)) {%>
-                                <td><%= r.getUsuario().getNombre()%></td>
-                                <% }%>
-                                <td><%= r.getFecha()%></td>
-                                <td><%= r.getHoraInicio()%></td>
-                                <td><%= r.getHoraFin()%></td>
-                                <td><%= r.getEstado()%></td>
-                                <td>
-                                    <a href="#" class="view" title="Ver" data-toggle="tooltip">
-                                        <i class="material-icons">&#xE417;</i>
-                                    </a>
-                                    <% if (user.getRol().equals(1) || r.getEstado().equals("PENDIENTE")) { %>
-                                    <a href="#" class="edit" title="Editar" data-toggle="tooltip">
-                                        <i class="material-icons">&#xE254;</i>
-                                    </a>
-                                    <a href="#" class="delete" title="Cancelar" data-toggle="tooltip">
-                                        <i class="material-icons">&#xE872;</i>
-                                    </a>
-                                    <% } %>
-                                </td>
-                            </tr>
-                            <% }
-                            }%>
-                        </tbody>
-                    </table>
-                </div>
-            </div>  
-        </div>   
-        <%-- ... (resto del código igual) ... --%>
 
-        <script src="dash.js"></script>
-    </body>
+        <% int i = 1;
+
+            for (reserva res : Reservas) {
+
+        %>
+
+        <table>
+            <thead>
+            <th>id</th>
+            <th>nombre</th>
+            <th>correo</th>
+            <th>telefono</th>
+            <th>Fecha</th>
+            <th>hora Inicio</th>
+            <th>Hora Fin</th>
+            <th>Estado</th>
+        </thead>
+        <tbody>
+            <td><%=i%></td>
+            <td><%=res.getUsuario().getNombre()%></td>
+            <td><%=res.getUsuario().getCorreo()%></td>
+            <td><%=res.getUsuario().getTelefono()%></td>
+            <td><%=res.getFecha()%></td>
+            <td><%=res.getHoraInicio()%></td>
+            <td><%=res.getHoraFin()%></td>
+            <td><%=res.getEstado()%></td>
+        </tbody>
+        </table>
+
+<%               i++;
+    }
+%>
+<script src="dash.js"></script>
+</body>
 
 </html>

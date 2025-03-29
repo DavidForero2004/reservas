@@ -128,16 +128,16 @@ public class usuarioJpaController implements Serializable {
         }
     }
 
-    public usuario buscarPorEmail(String email) {
+    public List<usuario> findusuariosByEmail(String correo) {
         EntityManager em = getEntityManager();
+        String FindQuery = "SELECT u FROM usuario u WHERE u.correo = :c ";
         try {
             TypedQuery<usuario> query = em.createQuery(
-                    "SELECT u FROM usuario u WHERE u.email = :emailParam", usuario.class);
-            query.setParameter("emailParam", email);
-
-            return query.getSingleResult();
-        } catch (NoResultException e) {
-            return null;
+                    FindQuery,
+                    usuario.class
+            );
+            query.setParameter("c", correo);
+            return query.getResultList();
         } finally {
             em.close();
         }
